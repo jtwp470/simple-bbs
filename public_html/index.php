@@ -6,9 +6,18 @@ if (!empty($_REQUEST)) {
     // ログイン処理
     if (!empty($_REQUEST['name']) && !empty($_REQUEST['pass'])) {
         // DB につなげログイン成功と仮定する
-        $_SESSION['name'] = $_REQUEST['name']; // 本当はDBから返ってくる値をセットする
-        $_SESSION['time'] = time();
-        $_SESSION['admin'] = true;
+        $sql = 'SELECT * FROM users WHERE username="%s" AND password="%s"';
+        $result = $db->query(sprintf($sql, $_REQUEST['name'], $_REQUEST['pass']));
+        var_dump($result);
+        if ($result) {
+            foreach ($result as $r) {
+                $_SESSION['id'] = $r['id'];
+                $_SESSION['name'] = $r['username'];
+                $_SESSION['is_admin'] = $r['is_admin'];
+            }
+        } else {
+            $err_msg = "Username or password unmached";
+        }
     } else {
         $err_msg = "Login failed";
     }
