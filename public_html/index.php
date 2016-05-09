@@ -6,20 +6,19 @@ if (!empty($_REQUEST)) {
     // ログイン処理
     if (!empty($_REQUEST['name']) && !empty($_REQUEST['pass'])) {
         // DB につなげログイン成功と仮定する
-        $sql = 'SELECT * FROM users WHERE username="%s" AND password="%s"';
-        $result = $db->query(sprintf($sql, $_REQUEST['name'], $_REQUEST['pass']));
-        var_dump($result);
+        $sql = 'SELECT * FROM users WHERE username="'.$_REQUEST['name'].'" AND password="'.$_REQUEST['pass'].'"';
+        $result = $db->query($sql);
+        // var_dump($sql);
         if ($result) {
             foreach ($result as $r) {
                 $_SESSION['id'] = $r['id'];
                 $_SESSION['name'] = $r['username'];
                 $_SESSION['is_admin'] = $r['is_admin'];
             }
+            header("Location: index.php"); exit();
         } else {
             $err_msg = "Username or password unmached";
         }
-    } else {
-        $err_msg = "Login failed";
     }
 }
 ?>
@@ -37,9 +36,9 @@ if (!empty($_REQUEST)) {
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-                    <?php if (!empty($_SESSION)) { ?>
-                        <li><a href="logout.php">Logout</a></li>
-                    <?php } ?>
+<?php if (!empty($_SESSION)) { ?>
+                    <li><a href="logout.php">Logout</a></li>
+<?php } ?>
                 </ul>
             </div>
         </div>
