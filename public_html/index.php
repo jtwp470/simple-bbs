@@ -1,5 +1,5 @@
 <?php
-include_once("config.php");
+include("config.php");
 session_start();
 
 if (!empty($_REQUEST)) {
@@ -38,14 +38,14 @@ if (!empty($_REQUEST)) {
     <div class="container">
         <h2>BBS</h2>
         <p>Very simpliy BBS</p>
-        <?php if (isset($err_msg)) { alert($err_msg, "warning"); } ?>
+        <?php if (isset($err_msg)) { echo alert($err_msg, "warning"); } ?>
         <?php if (empty($_SESSION['name'])) { ?>
-        <h3>Login</h3>
-        <form method="" action="">
-            <div class="formgroup">Username:<input name="name" type="text" class="form-control"/></div>
-            <div class="formgroup">Password:<input name="pass" type="text" class="form-control"/></div>
-            <div class="formgroup"><button type="submit" class="btn btn-success" value="login">Login</button></div>
-        </form>
+            <h3>Login</h3>
+            <form method="" action="">
+                <div class="formgroup">Username:<input name="name" type="text" class="form-control"/></div>
+                <div class="formgroup">Password:<input name="pass" type="text" class="form-control"/></div>
+                <div class="formgroup"><button type="submit" class="btn btn-success" value="login">Login</button></div>
+            </form>
         <?php } else {
     include("bbs.php");
     } ?>

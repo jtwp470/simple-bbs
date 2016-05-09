@@ -1,0 +1,18 @@
+# nginx
+# dockerun --name nginx -p 8080:80 -v $(pwd):/usr/share/nginx/html -d richarvey/nginx-php-fpm:latest
+nginx:
+  image: richarvey/nginx-php-fpm:latest
+  ports:
+    - "8080:80"
+  volumes:
+    - ./public_html:/usr/share/nginx/html
+  links:
+    - mysql
+
+# MySQL
+# docker run -v $(pwd)/conf/:/etc/mysql/conf.d -v $(pwd)/sql/:/docker-entrypoint-initdb.d -d --name mysqld -p 3307:3306 -e MYSQL_DATABASE=problem -e MYSQL_ROOT_PASSWORD=secret mysql:5.6
+mysql:
+  image: mysql:5.6
+  environment:
+    MYSQL_ROOT_PASSWORD: secret
+    MYSQL_DATABASE: bbs
