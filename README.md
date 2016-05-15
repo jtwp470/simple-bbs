@@ -11,12 +11,11 @@ This is a very simple BBS site used by PHP.
 Please **DO NOT USE** this site on the production.
 
 ## Usage
-We required docker.
-
-And run command like this:
+We required docker and docker-compose.
 
 ``` bash
-$ bash run.sh
+$ docker-compose up
+$ open http://localhost:8080/
 ```
 
 ## LICENSE

@@ -9,7 +9,7 @@ function alert($s, $type = "success") {
 
 
 // DB
-$HOST = "172.17.0.2";
+$HOST = "172.18.0.2";
 $PORT = 3306;
 
 $DB_USERNAME = "root";
@@ -23,3 +23,5 @@ try {
     header("HTTP/1.1 500 Internal Server Error");
     die("Cannot connect db: " . $e->getMessage());
 }
+
+error_reporting(0);

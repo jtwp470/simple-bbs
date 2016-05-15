@@ -1,0 +1,22 @@
+version: '2'
+services:
+  mysql:
+    image: mysql:5.6
+    environment:
+      MYSQL_ROOT_PASSWORD: secret
+      MYSQL_DATABASE: bbs
+    volumes:
+      - ./sql:/docker-entrypoint-initdb.d
+
+  php:
+    build: ./php-apache
+    ports:
+      - "8080:80"
+    volumes:
+      - ./public_html:/var/www/html
+    environment:
+      DB_USERNAME: root
+      DB_PASSWORD: secret
+      DB_HOST: mysql
+    depends_on:
+      - mysql
