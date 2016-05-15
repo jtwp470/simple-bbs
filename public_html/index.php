@@ -2,27 +2,21 @@
 include("config.php");
 session_start();
 
-if (!empty($_REQUEST)) {
-    // ログイン処理
-    if (!empty($_REQUEST['name']) && !empty($_REQUEST['pass'])) {
-        // DB につなげログイン成功と仮定する
-        $sql = 'SELECT * FROM users WHERE username="'.$_REQUEST['name'].'" AND password="'.$_REQUEST['pass'].'"';
-        $result = $db->query($sql);
-        // var_dump($sql);
-        if ($result) {
-            foreach ($result as $r) {
-                $_SESSION['id'] = $r['id'];
-                $_SESSION['name'] = $r['username'];
-                $_SESSION['is_admin'] = $r['is_admin'];
-            }
-            header("Location: index.php"); exit();
-        } else {
-            $err_msg = "Username or password unmached";
-        }
-    }
+if (empty($_SESSION['name'])) {
+    $op = 'login';
+} else {
+    $op = 'bbs';
 }
-?>
-<!DOCTYPE html lang="en">
+
+if (!empty($_REQUEST['op'])) {
+    $op = $_REQUEST['op'];
+}
+if (!is_string($op) || preg_match('/\.\./', $op))
+    die('no hacking');
+ob_start('ob_gzhandler');
+
+function page_top($op) {
+?><!DOCTYPE html lang="en">
 <html>
     <head>
         <meta charset="utf-8"/>
@@ -32,12 +26,15 @@ if (!empty($_REQUEST)) {
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="#">Simple BBS</a>
+                <a class="navbar-brand" href="/">Simple BBS</a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
 <?php if (!empty($_SESSION)) { ?>
-                    <li><a href="logout.php">Logout</a></li>
+                    <li><a href="?op=logout">Logout</a></li>
+<?php } ?>
+<?php if ($_SESSION['is_admin']) { ?>
+                    <li><a href="?op=admin">Admin Panel</a></li>
 <?php } ?>
                 </ul>
             </div>
@@ -46,16 +43,18 @@ if (!empty($_REQUEST)) {
     <div class="container">
         <h2>BBS</h2>
         <p>Very simpliy BBS</p>
+<?php } ?>
         <?php if (isset($err_msg)) { echo alert($err_msg, "warning"); } ?>
-        <?php if (empty($_SESSION['name'])) { ?>
-            <h3>Login</h3>
-            <form method="" action="">
-                <div class="formgroup">Username:<input name="name" type="text" class="form-control"/></div>
-                <div class="formgroup">Password:<input name="pass" type="text" class="form-control"/></div>
-                <div class="formgroup"><button type="submit" class="btn btn-success" value="login">Login</button></div>
-            </form>
-        <?php } else {
-    include("bbs.php");
-    } ?>
-        </div>
-</html>
+<?php
+function page_bottom() {
+?>
+    </div>
+</html><?php
+ob_end_flash();
+}
+
+register_shutdown_function('page_bottom');
+page_top($op);
+
+if (!include($op . '.php'))
+    fatal('no such page');
