@@ -30,7 +30,7 @@ function page_top($op) {
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
-<?php if (!empty($_SESSION)) { ?>
+<?php if (!empty($_SESSION['name'])) { ?>
                     <li><a href="?op=logout">Logout</a></li>
 <?php } ?>
 <?php if ($_SESSION['is_admin']) { ?>
@@ -44,17 +44,20 @@ function page_top($op) {
         <h2>BBS</h2>
         <p>Very simpliy BBS</p>
 <?php } ?>
-        <?php if (isset($err_msg)) { echo alert($err_msg, "warning"); } ?>
 <?php
 function page_bottom() {
 ?>
     </div>
 </html><?php
-ob_end_flash();
+ob_end_flush();
 }
 
 register_shutdown_function('page_bottom');
 page_top($op);
 
+if (!empty($_SESSION['err_msg'])) {
+    echo $_SESSION['err_msg'];
+}
 if (!include($op . '.php'))
     fatal('no such page');
+?>

@@ -1,4 +1,6 @@
 <?php
+if (!empty($_SESSION['err_msg']))
+    unset($_SESSION['err_msg']);
 if (empty($_SESSION)) {
     header("Location: index.php");
     exit();

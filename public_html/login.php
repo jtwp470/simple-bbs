@@ -14,7 +14,7 @@ if (!empty($_REQUEST)) {
             }
             header("Location: index.php"); exit();
         } else {
-            $err_msg = "Username or password unmached";
+            $_SESSION['err_msg'] = "Username or password unmached";
         }
     }
 }
