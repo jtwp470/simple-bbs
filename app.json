@@ -1,0 +1,13 @@
+{
+    "name": "Simple BBS",
+    "description": "This is a very simple BBS site which has many security problems to study security",
+    "repository": "https://github.com/jtwp470/simple-bbs",
+    "addons": [
+        "cleardb"
+    ],
+    "buildpacks": [
+        {
+            "url": "https://github.com/heroku/heroku-buildpack-php.git"
+        }
+    ]
+}
