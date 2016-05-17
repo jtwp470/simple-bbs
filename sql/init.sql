@@ -1,5 +1,5 @@
 -- ユーザー情報のテーブル
-CREATE TABLE users (
+CREATE TABLE IF NOT EXISTS users (
        id int NOT NULL AUTO_INCREMENT,
        username varchar(32) NOT NULL,   -- ユーザー名
        password varchar(60) NOT NULL,   -- パスワード
@@ -11,7 +11,7 @@ CREATE TABLE users (
 INSERT INTO bbs.users (username, password, is_admin) VALUES ("admin", "passwordpassword", true);
 
 -- BBS
-CREATE TABLE bbs (
+CREATE TABLE IF NOT EXISTS bbs (
        id int NOT NULL AUTO_INCREMENT,
        username varchar(32) NOT NULL,  -- 投稿者の名前
        content TEXT NOT NULL,          -- 投稿する内容

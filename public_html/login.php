@@ -6,12 +6,10 @@ if (!empty($_REQUEST)) {
         $sql = 'SELECT * FROM users WHERE username="'.$_REQUEST['name'].'" AND password="'.$_REQUEST['pass'].'"';
         $result = $db->query($sql);
         // var_dump($sql);
-        if ($result) {
-            foreach ($result as $r) {
-                $_SESSION['id'] = $r['id'];
-                $_SESSION['name'] = $r['username'];
-                $_SESSION['is_admin'] = $r['is_admin'];
-            }
+        if ($r = $result->fetch()) {
+            $_SESSION['id'] = $r[0];
+            $_SESSION['name'] = $r[1];
+            $_SESSION['is_admin'] = $r[3];
             header("Location: index.php"); exit();
         } else {
             $_SESSION['err_msg'] = "Username or password unmached";
