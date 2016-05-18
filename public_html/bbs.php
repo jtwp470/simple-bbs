@@ -36,9 +36,9 @@ while ($row = $stmt->fetchAll()) {
 ?>
     <div class="row">
         <div class="panel panel-default">
-            <div class="panel-heading"><h3 class="panel-title"><?php echo $r['username']; ?></h3></div>
-            <div class="panel-body"><?php echo $r['content']; ?></div>
-            <div class="panel-footer pull-right"><?php echo $r['datetime']; ?></div>
+            <div class="panel-heading"><h3 class="panel-title"><?php echo h($r['username']); ?></h3></div>
+            <div class="panel-body"><?php echo h($r['content']); ?></div>
+            <div class="panel-footer pull-right"><?php echo h($r['datetime']); ?></div>
         </div>
     </div>
     </br>
