@@ -14,6 +14,7 @@ if ($url = getenv("CLEARDB_DATABASE_URL")) {
     $DB_USERNAME = $url['user'];
     $DB_PASSWORD = $url['pass'];
     $DB_NAME = substr($url['path'], 1);
+    error_reporting(0); // Enable on heroku
 } else {
     $HOST = "172.18.0.2";
     $PORT = 3306;
@@ -33,4 +34,4 @@ try {
     die("Cannot connect db: " . $e->getMessage());
 }
 
-error_reporting(0);
+$db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);

@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS users (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1;
 
 -- 管理者だけ最初に登録しておく
-INSERT INTO bbs.users (username, password, is_admin) VALUES ("admin", "passwordpassword", true);
+INSERT INTO bbs.users (username, password, is_admin) VALUES ("admin", "$2y$10$mXKZyxrlH6dgPBc3JrMppeme.NIrEV6rRNcbz.q8GUvXMbvBOFpb2", true);
 
 -- BBS
 CREATE TABLE IF NOT EXISTS bbs (

@@ -21,12 +21,12 @@ function page_top($op) {
     <head>
         <meta charset="utf-8"/>
         <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.6/yeti/bootstrap.min.css" rel="stylesheet" integrity="sha384-yxFy3Tt84CcGRj9UI7RA25hoUMpUPoFzcdPtK3hBdNgEGnh9FdKgMVM+lbAZTKN2" crossorigin="anonymous">
-        <title>Simple BBS</title>
+        <title>More Secure BBS</title>
     </head>
     <nav class="navbar navbar-default">
         <div class="container-fluid">
             <div class="navbar-header">
-                <a class="navbar-brand" href="/">Simple BBS</a>
+                <a class="navbar-brand" href="/">More Secure BBS</a>
             </div>
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
