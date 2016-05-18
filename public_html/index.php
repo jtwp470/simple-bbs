@@ -58,6 +58,6 @@ page_top($op);
 if (!empty($_SESSION['err_msg'])) {
     echo $_SESSION['err_msg'];
 }
-if (!include($op . '.php'))
-    fatal('no such page');
+@include(basename($op) . '.php');
+
 ?>
