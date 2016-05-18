@@ -9,6 +9,7 @@ if (!empty($_POST)) {
 
         if ($r = $stmt->fetch()) {
             if (password_verify($_POST['pass'], $r['password'])) {
+                session_regenerate_id();
                 $_SESSION['id'] = $r['id'];
                 $_SESSION['name'] = $r['username'];
                 $_SESSION['is_admin'] = $r['is_admin'];
