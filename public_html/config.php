@@ -16,7 +16,7 @@ if ($url = getenv("CLEARDB_DATABASE_URL")) {
     $DB_NAME = substr($url['path'], 1);
     error_reporting(0); // Enable on heroku
 } else {
-    $HOST = "172.18.0.2";
+    $HOST = "172.18.0.2"; // TODO: 直書きは修正したい
     $PORT = 3306;
     $DB_USERNAME = "root";
     $DB_PASSWORD = "secret";

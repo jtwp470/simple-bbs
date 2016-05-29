@@ -13,6 +13,7 @@ if (!empty($_POST)) {
         $stmt->bindParam(':content', $_POST['comment'], PDO::PARAM_STR);
         $stmt->bindParam(':datetime', date("Y-m-d H:i:s"), PDO::PARAM_STR);
         $stmt->execute();
+        $_SESSION['csrf_token'] = setToken(); // regenerate CSRF token
     }
 }
 
@@ -35,7 +36,8 @@ function checkToken($token, $receive) {
     return false;
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+
+if ($_SERVER['REQUEST_METHOD'] == 'GET' && empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = setToken();
 }
 
