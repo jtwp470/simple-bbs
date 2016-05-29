@@ -52,3 +52,9 @@ try {
 }
 
 $db->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+
+// enhancement security
+header('X-XSS-Protection: "1; mode=block"');
+header('X-Frame-Options: DENY');
+header('X-Content-Type-Options: nosniff');
+header("Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' maxcdn.bootstrapcdn.com fonts.googleapis.com; font-src 'self' maxcdn.bootstrapcdn.com fonts.gstatic.com;");
