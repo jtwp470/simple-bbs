@@ -22,6 +22,23 @@ if ($url = getenv("CLEARDB_DATABASE_URL")) {
     $DB_NAME = "bbs";
 }
 
+if (getenv("CLEARDB_DATABASE_URL")) { // if this env exists, maybe run on heroku
+    // Basic Authentication
+    $user = getenv("BASIC_AUTH_USERNAME");
+    $pass = getenv("BASIC_AUTH_PASSWORD");
+    if (!isset($_SERVER['PHP_AUTH_USER'])) {
+        header('WWW-Authenticate: Basic realm="Private Page"');
+        header('HTTP/1.0 401 Unauthorized');
+        die("<h1>401 Unauthorized</h1>");
+    } else {
+        if ($_SERVER['PHP_AUTH_USER'] != $user || $_SERVER['PHP_AUTH_PW'] != $pass) {
+            header('WWW-Authenticate: Basic realm="Private Page"');
+            header('HTTP/1.0 401 Unauthored');
+            die();
+        }
+    }
+}
+
 try {
     if (isset($PORT)) {
         $db = new PDO("mysql:host=$HOST;port=$PORT;dbname=$DB_NAME;charset=utf8", $DB_USERNAME, $DB_PASSWORD);
